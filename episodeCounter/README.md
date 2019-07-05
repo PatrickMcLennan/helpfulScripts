@@ -12,4 +12,4 @@ Ex.
     ^^                                              ^^
     renames all '.mkv' files to Episode 1.avi, Episode 2.avi, Episode 3.avi, etc...
 
-Useful for when you are re-organizing all of the legally purchased media on your harddrive.
+Useful for when you are re-organizing all of the legally purchased media on your hard drive.
