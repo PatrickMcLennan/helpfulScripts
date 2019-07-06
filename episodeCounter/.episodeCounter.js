@@ -29,7 +29,7 @@ if (ARG_COUNT <= 2) {
                     fs.rename(file, newName, err =>
                         err
                             ? console.error(err)
-                            : console.log`Renaming ${file} to ${newName}`
+                            : console.log(`Renaming ${file} to ${newName}`)
                     );
                     COUNTER += 1;
                 }

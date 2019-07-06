@@ -17,7 +17,8 @@ const reader = (start, stop, text) => {
     return textArr
         .slice(beginning, end)
         .toString()
-        .replace(/,/g, '\n');
+        .replace(/,/g, '\n')
+        .replace(/The HTML5 Herald/g, NAME);
 };
 
 if (process.argv.length <= 2) {

@@ -1,6 +1,6 @@
 These scripts will rename all files of a specified extension within the current directory into a sequenced Episode count.
 
-It can take up to 2 arguments - 1 if you wish to rename all of the files of that extension, 2 if you wish to rename the 2nd extension to the 1st.
+It can take up to 2 arguments - 1 if you wish to rename all of the files of that extension, 2 if you wish to rename all files of the 2nd extension to the 1st.
 
 Ex.
 
