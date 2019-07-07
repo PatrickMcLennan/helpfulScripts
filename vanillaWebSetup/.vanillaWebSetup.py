@@ -14,18 +14,26 @@ if (ARG_COUNT <= 1):
 elif (ARG_COUNT == 2):
     NAME = sys.argv[1]
     files = ['index.html', 'style.css', 'app.js']
-    starts_stops = [['<!doctype html>\n', '</html>\n'],
-                    ['*,\n', 'min-width: 100vw; }'],
+    starts_stops = [['<!doctype html>', '</html>'],
+                    ['*,', '    min-width: 100vw; }'],
                     ['Testing Start', 'Testing Stop']]
 
-    with open('./resets.txt', 'r') as raw_text:
-        lines = raw_text.readlines()
+    def reader(file, lines_arr, good_text):
+        start = good_text.index(lines_arr[0])
+        stop = (good_text.index(lines_arr[1]) + 1)
 
+        with open(file, 'w') as new_file:
+            for i in range(start, stop):
+                if good_text[i] == '  <title>The HTML5 Herald</title>':
+                    new_file.write(f'<title>{NAME}</title>')
+                else:
+                    new_file.write(good_text[i])
+
+    with open('./resets.txt', 'r') as raw_text:
+        text = raw_text.read().split('\n')
+        print(text)
         for file in files:
-            start = starts_stops[files.index(file)][0]
-            end = starts_stops[files.index(file)][1]
-            with open(file, 'w') as new_file:
-                new_file.write(f'{lines.slice(lines[start], lines[end])}')
+            reader(file, starts_stops[files.index(file)], text)
 
 else:
     print('------------------------------------')
