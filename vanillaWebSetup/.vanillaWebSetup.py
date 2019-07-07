@@ -3,25 +3,33 @@ import sys
 
 here = os.getcwd()
 
-html_start = '-- HTML START --'
-html_end = '-- HTML END --'
+NAME = sys.argv[1]
+ARG_COUNT = len(sys.argv)
 
 
-def reader(line_start, line_stop):
-    text = open('./resets.txt', 'r')
-    print(text.read())
-    text.close()
+def reader(file, lines_arr, text):
+    content = text.readlines()
+    print(content)
 
 
-if len(sys.argv) == 1:
-    print('-------------------------------------------------')
-    print('You need to enter a project name into this script.')
-    print('-------------------------------------------------')
+if (ARG_COUNT <= 1):
+    print('------------------------------------------')
+    print('You must pass 1 argument into this script.')
+    print('------------------------------------------')
+
+elif (ARG_COUNT == 2):
+    NAME = sys.argv[1]
+    with open('./resets.txt', 'r') as raw_text:
+        text = raw_text.read()
+        files = ['index.html', 'style.css', 'app.js']
+        starts_stops = [['<!doctype html', '</html>'],
+                        ['*,', 'min-width: 100vw; }'],
+                        ['Testing Start', 'Testing Stop']]
+        for file in files:
+            reader(file, starts_stops[files.index(file)], text)
+
 
 else:
-    NAME = sys.argv[1]
-    html = open('index.html', 'w')
-    html.write('Testing')
-    html.close()
-    reader(html_start, html_end)
-    print(f'index.html was created in ${here}')
+    print('------------------------------------')
+    print('This script only accepts 1 argument.')
+    print('------------------------------------')

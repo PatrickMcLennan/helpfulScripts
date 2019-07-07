@@ -13,7 +13,7 @@ if (ARG_COUNT <= 2) {
     You must pass at least 1 argument into this script.
     ---------------------------------------------------
     `);
-} else {
+} else if (ARG_COUNT === 3 || ARG_COUNT === 4) {
     fs.readdir(here, (err, files) => {
         if (err) {
             console.error(err);
@@ -36,4 +36,10 @@ if (ARG_COUNT <= 2) {
             });
         }
     });
+} else {
+    console.log(`
+    ------------------------------------------
+    This script only accepts 1 or 2 arguments.
+    ------------------------------------------
+    `);
 }

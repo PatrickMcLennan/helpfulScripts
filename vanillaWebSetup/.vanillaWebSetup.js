@@ -3,6 +3,7 @@ const fs = require('fs');
 const here = path.resolve();
 
 const NAME = process.argv[2];
+const ARG_COUNT = process.argv.length;
 
 const htmlStart = '<!doctype html>';
 const htmlEnd = '</html>';
@@ -21,13 +22,13 @@ const reader = (start, stop, text) => {
         .replace(/The HTML5 Herald/g, NAME);
 };
 
-if (process.argv.length <= 2) {
+if (ARG_COUNT <= 2) {
     console.log(`
     ------------------------------------------
     You must pass 1 argument into this script.
     ------------------------------------------
     `);
-} else {
+} else if (ARG_COUNT === 3) {
     fs.readFile('./resets.txt', 'utf-8', (err, text) => {
         if (err) {
             console.error(err);
@@ -48,4 +49,10 @@ if (process.argv.length <= 2) {
             );
         }
     });
+} else {
+    console.log(`
+    ------------------------------------
+    This script only accepts 1 argument.
+    ------------------------------------
+    `);
 }

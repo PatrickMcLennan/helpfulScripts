@@ -26,4 +26,8 @@ if [[ $# == 0 ]]; then
                 (( COUNTER++ ))
             done
 
+    elif [[ $# >= 3 ]]; then
+        echo ------------------------------------------
+        echo This script only accepts 1 or 2 arguments.
+        echo ------------------------------------------
 fi

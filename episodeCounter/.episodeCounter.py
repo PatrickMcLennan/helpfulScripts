@@ -28,3 +28,8 @@ elif ARG_COUNT == 3:
             print(f'Renaming {i} to {new_name}')
             os.rename(i, new_name)
             COUNTER += 1
+
+elif ARG_COUNT >= 4:
+    print('------------------------------------------')
+    print('This script only accepts 1 or 2 arguments.')
+    print('------------------------------------------')
