@@ -12,11 +12,11 @@ if [[ $# == 0 ]]; then
         awk 'NR>=15 && NR<=34' resets.txt > style.css
         echo 'Testing' >> app.js
 
-        echo index.html was created in $(pwd)
-        echo style.css was created in $(pwd)
-        echo app.js was created in $(pwd)
+        for FILE in index.html style.css app.js; do
+            echo $FILE was created in $(pwd)
+            done
 
-    elif [[ $# >= 2 ]]; then
+    elif [[ $# -ge 2 ]]; then
         echo ------------------------------------
         echo This script only accepts 1 argument.
         echo ------------------------------------
