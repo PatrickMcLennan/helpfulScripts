@@ -28,6 +28,7 @@ if (ARG_COUNT !== 3) {
     You must pass 1 argument into this script.
     ------------------------------------------
     `);
+	process.exit(1);
 } else {
 	fs.readFile('./resets.txt', 'utf-8', (err, text) => {
 		if (err) {

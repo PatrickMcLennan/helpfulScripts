@@ -122,6 +122,7 @@ if (ARG_COUNT !== 4) {
         You must enter 2 arguments into this script.
         --------------------------------------------
     `);
+    process.exit(1)
 } else {
 	return reddit.initialize();
 }

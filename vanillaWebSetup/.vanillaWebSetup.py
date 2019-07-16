@@ -6,12 +6,12 @@ here = os.getcwd()
 NAME = sys.argv[1]
 ARG_COUNT = len(sys.argv)
 
-if (ARG_COUNT <= 1):
+if (ARG_COUNT != 2):
     print('------------------------------------------')
     print('You must pass 1 argument into this script.')
     print('------------------------------------------')
 
-elif (ARG_COUNT == 2):
+else:
     NAME = sys.argv[1]
     files = ['index.html', 'style.css', 'app.js']
     starts_stops = [['<!doctype html>', '</html>'],
@@ -34,8 +34,3 @@ elif (ARG_COUNT == 2):
         print(text)
         for file in files:
             reader(file, starts_stops[files.index(file)], text)
-
-else:
-    print('------------------------------------')
-    print('This script only accepts 1 argument.')
-    print('------------------------------------')

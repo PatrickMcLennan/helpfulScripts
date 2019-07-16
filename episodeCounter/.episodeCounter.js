@@ -13,6 +13,7 @@ if (ARG_COUNT !== 3 || ARG_COUNT !== 4) {
     You must pass 1 or 2 arguments into this script.
     ---------------------------------------------------
     `);
+	process.exit(1);
 } else {
 	fs.readdir(here, (err, files) => {
 		if (err) {

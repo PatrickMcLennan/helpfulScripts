@@ -5,7 +5,7 @@ from pathlib import Path
 ARG_COUNT = len(sys.argv)
 COUNTER = 1
 
-if ARG_COUNT == 1:
+if ARG_COUNT == 1 or ARG_COUNT >= 4:
     print('--------------------------------------------------')
     print('You must pass at least 1 arugment into this script')
     print('--------------------------------------------------')
@@ -28,8 +28,3 @@ elif ARG_COUNT == 3:
             print(f'Renaming {i} to {new_name}')
             os.rename(i, new_name)
             COUNTER += 1
-
-elif ARG_COUNT >= 4:
-    print('------------------------------------------')
-    print('This script only accepts 1 or 2 arguments.')
-    print('------------------------------------------')
