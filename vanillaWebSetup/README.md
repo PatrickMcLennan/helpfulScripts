@@ -6,6 +6,6 @@ Ex.
 
     node/bash/python3 .vanillaWebSetup.js/sh/py My\ New\ Project
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    Creates an 'index.html' with a title element 'My New Project', 'style.css' & 'app.js'
+    Creates an 'index.html' with a head + title element 'My New Project', 'style.css' + basic resets & 'app.js'
 
 Resets can be found in ./resets.txt.
