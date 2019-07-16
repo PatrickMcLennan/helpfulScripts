@@ -1,6 +1,6 @@
 Scrapes Reddit, gathers images, checks for duplicates within your Directory, downloads images if not found. Primarily built for r/WidescreenWallpaper, but should work for any subreddit made for images.
 
-Takes 2 arguments - one for the subreddit to scrape, another for the directory to check for duplicates + download destination.
+Takes 2 arguments - the 1st being the subreddit to scrape, 2nd being the directory to check for duplicates + create images within.
 
 Ex.
 
