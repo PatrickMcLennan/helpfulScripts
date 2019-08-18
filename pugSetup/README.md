@@ -11,15 +11,22 @@ Will create a `myProject` in the current directory. Within that, creates `src` +
 ```
 myProject
 |
-|-> dist
+|--> dist
 |   |-> index.html
 |   |-> style.css
 |   |-> app.js
 |
-|-> src
+|--> src
 |   |-> index.pug
 |   |-> style.scss
 |   |-> es6.js
+|
+|--> node_modules
+|   |-> ...
+|
+|-> package.json
+|-> package-lock.json
+
 ```
 
 All dependencies come installed with npm scripts ready to go.
