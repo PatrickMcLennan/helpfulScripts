@@ -6,7 +6,7 @@ Takes 1 argument (the project name), and creates a boilerplate pug, SCSS & Vanil
     node pugSetup myProject
 ```
 
-Will create a `myProject` directory. Within that, creates `src` + `dist` directories + the following files.
+Will create a `myProject` in the current directory. Within that, creates `src` + `dist` directories + the following files.
 
 ```
 myProject
