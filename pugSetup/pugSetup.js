@@ -135,14 +135,19 @@ if (process.argv.length !== 3 || process.argv[2].includes(' ')) {
 			})
 		);
 
-		return exec('clear && npm install', err => {
+		return exec('clear && npm install ;', err => {
 			if (err) {
 				return console.error(err);
 			}
 			console.log('Files created, packages installed, beginning to compile boilerplate code...');
 			boilerplateScripts.forEach(script =>
 				exec(script, err => {
-					err ? console.error(err) : process.exit(0);
+					err
+						? () => {
+								console.error(err);
+								process.exit(1);
+						  }
+						: process.exit(0);
 				})
 			);
 			process.stdout.write('\033c');
@@ -151,8 +156,8 @@ if (process.argv.length !== 3 || process.argv[2].includes(' ')) {
 ${NAME}s first build is complete.
 
 HOW TO USE:
-- 'npm run watch' will use Babel, Pug and Sass to watch es6.js, index.pug + style.scss within ${NAME}/src.  On each files save it will be compiled into its associated file within ${NAME}/src.
-- 'npm run build' will minify index.html and also app.js & prefix + minify style.css within ${NAME}/dist.
+--> 'npm run watch' will use Babel, Pug and Sass to watch es6.js, index.pug + style.scss within ${NAME}/src.  On each files change + save it will compile into ${NAME}/src.
+--> 'npm run build' will minify index.html and also app.js & prefix + minify style.css within ${NAME}/dist.
 
 This comes installed with eslint - 'npx eslint --init' will initialize it.  Your call.
 
