@@ -31,7 +31,7 @@ myProject
 
 All dependencies come installed with npm scripts ready to go.
 
-### Developing
+#### Developing
 
 ```
     npm run watch
