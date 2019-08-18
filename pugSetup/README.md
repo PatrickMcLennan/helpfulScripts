@@ -3,7 +3,7 @@
 Takes 1 argument (the project name), and creates a boilerplate pug, SCSS & Vanilla JS project.
 
 ```
-    node pugSetup myProject
+    node pugSetup.js myProject
 ```
 
 Will create `myProject` in the current directory. Within that, creates `src` + `dist` directories + the following files.
