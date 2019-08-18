@@ -31,11 +31,15 @@ myProject
 
 All dependencies come installed with npm scripts ready to go.
 
+### Developing
+
 ```
     npm run watch
 ```
 
-Monitors all files within the `src` directory and, on save, compiles down into the `dist` directory. Babel, node-sass & pug will spit out es5, css & html.
+Monitors all files within the `src` directory and, on save, compiles down into the `dist` directory. Babel, node-sass & pug will spit out es5, css & html. Using this in conjunction with the VS Code extension Live Server (running on `/dist/index.html`) will give you hot-reloading during development.
+
+#### Building
 
 ```
     npm run build
@@ -56,11 +60,10 @@ concurrently
 cssnano
 eslint
 html-minifier
-node-sass
+node-sass`
 postcss
 postcss-cli
 pug
 pug-cli
 uglify-js
-
 ```
