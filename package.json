@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/PatrickMcLennan/helpfulScripts#readme",
   "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-plugin-node": "^9.1.0",
     "prettier-eslint": "^9.0.0",
     "puppeteer": "^1.18.1"
   }
