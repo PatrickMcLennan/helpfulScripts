@@ -60,10 +60,12 @@ concurrently
 cssnano
 eslint
 html-minifier
-node-sass`
+node-sass
 postcss
 postcss-cli
 pug
 pug-cli
 uglify-js
 ```
+
+`eslint` does not come initialized - it is up to you if you want to use it...but it's recommended. `npx eslint --init` will get it set up.
