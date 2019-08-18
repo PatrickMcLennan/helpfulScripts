@@ -6,7 +6,7 @@ Takes 1 argument (the project name), and creates a boilerplate pug, SCSS & Vanil
     node pugSetup myProject
 ```
 
-Will create a `myProject` in the current directory. Within that, creates `src` + `dist` directories + the following files.
+Will create `myProject` in the current directory. Within that, creates `src` + `dist` directories + the following files.
 
 ```
 myProject
@@ -42,3 +42,25 @@ Monitors all files within the `src` directory and, on save, compiles down into t
 ```
 
 Prepares the `dist` directory for production. uglify-js, postcss w/ autoprefixer + cssnano & html-minifier minify all 3 files, stripping them of comments and whitespace as well as prefixing the css.
+
+---
+
+`pugSetup` installs the following as devDependencies:
+
+```
+@babel/cli
+@babel/core
+@babel/preset-env
+autoprefixer
+concurrently
+cssnano
+eslint
+html-minifier
+node-sass
+postcss
+postcss-cli
+pug
+pug-cli
+uglify-js
+
+```

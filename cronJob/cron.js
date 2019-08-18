@@ -1,11 +1,19 @@
-const sayHello = () => {
-	const currentHour = new Date().getHours() > 12 ? new Date().getHours() - 12 : new Date().getHours();
-	const currentMinutes = new Date().getMinutes() < 10 ? `0${new Date().getMinutes()}` : new Date().getMinutes();
-	const amPm = new Date().getHours() > 12 ? 'P.M' : 'A.M';
+const path = require('path');
+const { exec } = require('child_process');
 
-	console.log(`Hello, it's ${currentHour}:${currentMinutes}${amPm}`);
+const here = path.resolve();
 
-	return setTimeout(() => sayHello(), 60000);
-};
+const call = () => exec(`node ../redditScraper/.redditScraper.js widescreenwallpaper ${here}`, err => {
+	process.stdout.write('\033c');
+    if (err) {
+        console.error(err)
+    }
+    
+    process.stdout.write('\033c');
+    console.log(
+        `Successfully ran at 
+            ${new Date().getHours() > 12 ? new Date().getHours() - 12 : new Date().getHours()}:${new Date().getMinutes() < 10 ? "0" + new Date().getMinutes() : new Date().getMinutes()}`)
+    return setTimeout(() => call(), 1.8e+6)
+})
 
-sayHello();
+call();

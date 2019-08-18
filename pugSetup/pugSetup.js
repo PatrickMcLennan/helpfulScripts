@@ -87,11 +87,13 @@ const packageJsonText = `
 `;
 
 if (process.argv.length !== 3 || process.argv[2].includes(' ')) {
-	return console.log(`
+    process.stdout.write('\033c');
+	console.log(`
         ---------------------------------------------------------------------------------------------------------
         You can only enter one argument into this script, and for NPM to work properly it cannot include a space.
         ---------------------------------------------------------------------------------------------------------
     `);
+    return process.exit(1);
 } else {
 	process.stdout.write('\033c');
 	console.log('Creating directories...');
@@ -135,7 +137,7 @@ if (process.argv.length !== 3 || process.argv[2].includes(' ')) {
 			})
 		);
 
-		return exec('clear && npm install ;', err => {
+		return exec('npm install ;', err => {
 			if (err) {
 				return console.error(err);
 			}
@@ -146,7 +148,7 @@ if (process.argv.length !== 3 || process.argv[2].includes(' ')) {
 						? () => {
 								console.error(err);
 								process.exit(1);
-						  }
+                            }
 						: process.exit(0);
 				})
 			);

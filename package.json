@@ -22,5 +22,8 @@
     "eslint-plugin-node": "^9.1.0",
     "prettier-eslint": "^9.0.0",
     "puppeteer": "^1.18.1"
+  },
+  "dependencies": {
+    "axios": "^0.19.0"
   }
 }

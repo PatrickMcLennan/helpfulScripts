@@ -118,11 +118,13 @@ const reddit = {
 
 if (ARG_COUNT !== 4) {
 	console.log(`
-        --------------------------------------------
-        You must enter 2 arguments into this script.
-        --------------------------------------------
+        ---------------------------------------------------------------------------
+        You must enter 2 arguments into this script - a reddit sub and a directory.
+        ---------------------------------------------------------------------------
     `);
     process.exit(1)
 } else {
 	return reddit.initialize();
 }
+
+module.exports = reddit;
