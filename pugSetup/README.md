@@ -68,4 +68,4 @@ pug-cli
 uglify-js
 ```
 
-`eslint` does not come initialized - it is up to you if you want to use it...but it's recommended. `npx eslint --init` will get it set up.
+`eslint` does not come initialized - you do you on that one. `npx eslint --init` will get it set up.
