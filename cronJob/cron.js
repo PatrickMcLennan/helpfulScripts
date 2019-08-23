@@ -1,20 +1,30 @@
-const path = require('path');
-const { exec } = require('child_process');
+const fs = require('fs')
+const path = require('path')
+const https = require('https')
 
 const here = path.resolve();
 
 const now = new Date();
-const currentTime = `${now.getHours() > 12 ? now.getHours() - 12 : now.getHours()}:${now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes()}${now.getHours() > 12 ? 'P.M' : 'A.M'}`
 
-const call = () => exec(`node ../redditScraper/.redditScraper.js widescreenwallpaper ${here}`, err => {
-	process.stdout.write('\033c');
-    if (err) {
-        console.error(err)
+const moveThatBus = () => https.get('https://jsonplaceholder.typicode.com/posts', res => {
+    let data = '';
+
+    res.on('data', chunk => data += chunk);
+
+    res.on('end', () => {
+        const timeStamp = () => `${now.getHours() > 12 ? now.getHours() - 12 : now.getHours()}:${now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()}`
+        const dateAdder = string => JSON.stringify(JSON.parse(string).concat([{dateStamp: `This was scraped at ${timeStamp()}`}]))
+        fs.writeFile(`${here}/yolo.txt`, dateAdder(data), err =>
+            err
+                ? console.error(err)
+                : console.log(`Successfully ran at ${timeStamp()}`)
+        )
+        return setTimeout(() => moveThatBus(), 30000)
     }
-    
-    process.stdout.write('\033c');
-    console.log(`Successfully ran at ${currentTime}`)
-    return setTimeout(() => call(), 1.8e+6)
+    )
+}).on('error', err => {
+    console.error(`ERROR: ${err}`);
+    return process.exit(1)
 })
 
-call();
+moveThatBus()
