@@ -1,15 +1,7 @@
 import * as puppeteer from 'puppeteer';
+import fileNameValidator from '../fileNameValidator/fileNameValidator';
 
-interface INoAdsResult {
-    dataUrl: string;
-    domain: string;
-    title: string;
-    titleHref: string;
-}
-
-interface IScrapeResult extends INoAdsResult {
-    ads: [boolean | null, boolean | null, boolean | null];
-}
+import { INoAdsResult, IScrapeResult } from './../dictionary';
 
 const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
     /**
@@ -22,7 +14,7 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
     /**
      * Page is loaded, parse out individual posts.
      */
-    return newPage.evaluate((): INoAdsResult[] => {
+    const validPosts: INoAdsResult[] = await newPage.evaluate((): INoAdsResult[] => {
         const posts: Element[] = Array.from(document.querySelectorAll('.thing'));
         /**
          * Loop over each scraped post, pull what you want
@@ -47,19 +39,23 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
             };
         })
             /**
-             * Filter out posts that are ads or have nsfw tags, strip out
-             * junk properties from valid posts.
+             * Filter out posts that contain a truthy within the ads array,
+             * these are either ads or nsfw.  Strip out this array from
+             * the valid posts + format the name properly.
              */
             .filter((post: IScrapeResult): boolean => !post.ads.includes(true))
             .map((goodPost: IScrapeResult): INoAdsResult => {
                 return {
                     dataUrl: goodPost.dataUrl,
                     domain: goodPost.domain,
-                    title: goodPost.title,
+                    title: fileNameValidator(goodPost.title),
                     titleHref: goodPost.titleHref
                 };
             });
     });
+
+    await newPage.close();
+    return validPosts;
 };
 
-module.exports = redditScraper;
+export default redditScraper;

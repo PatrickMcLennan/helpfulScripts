@@ -1,10 +1,13 @@
 {
 	"compileOnSave": true,
 	"compilerOptions": {
+		"allowJs": false,
 		"module": "commonjs",
 		"noImplicitReturns": true,
 		"outDir": "./",
-		"target": "es5"
+		"removeComments": true,
+		"target": "es6"
 	},
-	"include": ["./tsscraper/index.ts"]
+	"exclude": ["./node_modules"],
+	"include": ["./fileNameValidator/fileNameValidator", "./imgScraper/imgScraper.ts", "./tsscraper/tsscraper.ts"]
 }

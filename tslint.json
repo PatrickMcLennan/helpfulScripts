@@ -5,6 +5,7 @@
 	"rules": {
 		"arrow-return-shorthand": true,
 		"class-name": true,
+		"eofline": false,
 		"indent": [true, "spaces"],
 		"interface-name": [true, "always-prefix"],
 		"max-line-length": false,

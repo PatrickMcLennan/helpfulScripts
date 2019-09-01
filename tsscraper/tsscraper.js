@@ -37,8 +37,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var puppeteer = require("puppeteer");
+var fileNameValidator_1 = require("../fileNameValidator/fileNameValidator");
 var redditScraper = function (SUB) { return __awaiter(void 0, void 0, void 0, function () {
-    var URL, newBrowser, newPage;
+    var URL, newBrowser, newPage, validPosts;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -52,10 +53,7 @@ var redditScraper = function (SUB) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, newPage.goto(URL, { waitUntil: 'networkidle0', timeout: 0 })];
             case 3:
                 _a.sent();
-                /**
-                 * Page is loaded, parse out individual posts.
-                 */
-                return [2 /*return*/, newPage.evaluate(function () {
+                return [4 /*yield*/, newPage.evaluate(function () {
                         var posts = Array.from(document.querySelectorAll('.thing'));
                         /**
                          * Loop over each scraped post, pull what you want
@@ -79,20 +77,27 @@ var redditScraper = function (SUB) { return __awaiter(void 0, void 0, void 0, fu
                             };
                         })
                             /**
-                             * Filter out posts that are ads or have nsfw tags, strip out
-                             * junk properties from valid posts.
+                             * Filter out posts that contain a truthy within the ads array,
+                             * these are either ads or nsfw.  Strip out this array from
+                             * the valid posts + format the name properly.
                              */
                             .filter(function (post) { return !post.ads.includes(true); })
                             .map(function (goodPost) {
                             return {
                                 dataUrl: goodPost.dataUrl,
                                 domain: goodPost.domain,
-                                title: goodPost.title,
+                                title: fileNameValidator_1["default"](goodPost.title),
                                 titleHref: goodPost.titleHref
                             };
                         });
                     })];
+            case 4:
+                validPosts = _a.sent();
+                return [4 /*yield*/, newPage.close()];
+            case 5:
+                _a.sent();
+                return [2 /*return*/, validPosts];
         }
     });
 }); };
-module.exports = redditScraper;
+exports["default"] = redditScraper;
