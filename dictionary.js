@@ -1,8 +1,2 @@
 "use strict";
-/**
- * tsscraper
- */
-exports.__esModule = true;
-/**
- * imgScraper
- */ 
+Object.defineProperty(exports, "__esModule", { value: true });

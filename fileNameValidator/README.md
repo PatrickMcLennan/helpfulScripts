@@ -3,7 +3,7 @@
 Strips a string of anything that will clash with a file systems requirements.
 
 ```
-const fileNameValidatory = require('fileNameValidator');
+const fileNameValidator = require('fileNameValidator');
 ```
 
 gives you access to the `fileNameValidator()` function.

@@ -4,16 +4,9 @@
 	"description": "Some helpful scripts that I've written in Python, Bash or Node.",
 	"main": "index.js",
 	"scripts": {
-		"run:allTs": "concurrently 'npm run run:fileNameValidator' 'npm run run:imgScraper' 'npm run run:tsscraper'",
-		"tsc:fileNameValidator": "tsc -w './fileNameValidator/fileNameValidator.ts'",
-		"lint:fileNameValidator": "tslint -p './tsconfig.json' -e './fileNameValidator/fileNameValidator.ts'",
-		"run:fileNameValidator": "concurrently 'npm run tsc:fileNameValidator' 'npm run lint:fileNameValidator'",
-		"tsc:imgScraper": "tsc -w './imgScraper/imgScraper.ts'",
-		"lint:imgScraper": "tslint -p './tsconfig.json' -e './imgScraper/imgScraper.ts'",
-		"run:imgScraper": "concurrently 'npm run tsc:imgScraper' 'npm run lint:imgScraper'",
-		"tsc:tsscraper": "tsc -w './tsscraper/tsscraper.ts'",
-		"lint:tsscraper": "tslint -p './tsconfig.json' -e './tsscraper/tsscaper.ts'",
-		"run:tsscraper": "concurrently 'npm run tsc:tsscraper' 'npm run lint:tsscraper'"
+		"watch:Ts": "concurrently 'npm run tsc' 'npm run tsLinter'",
+		"tsc": "tsc -w -p .",
+		"tsLinter": "tslint -p ."
 	},
 	"repository": {
 		"type": "git",

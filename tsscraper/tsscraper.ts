@@ -1,6 +1,5 @@
 import * as puppeteer from 'puppeteer';
 import fileNameValidator from '../fileNameValidator/fileNameValidator';
-
 import { INoAdsResult, IScrapeResult } from './../dictionary';
 
 const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
@@ -15,7 +14,7 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
      * Page is loaded, parse out individual posts.
      */
     const validPosts: INoAdsResult[] = await newPage.evaluate((): INoAdsResult[] => {
-        const posts: Element[] = Array.from(document.querySelectorAll('.thing'));
+        const posts: HTMLDivElement[] = Array.from(document.querySelectorAll('.thing'));
         /**
          * Loop over each scraped post, pull what you want
          */
@@ -30,31 +29,38 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
                 domain: post.querySelector('span > a').textContent,
                 title:
                     post
-                        .querySelector('a[data-event-action="title')
-                        .textContent
-                        .replace('/', '-')
-                        .replace(' ', '-')
-                        .trim(),
+                        .querySelector('a[data-event-action="title"')
+                        .textContent,
                 titleHref: post.querySelector('a').getAttribute('href'),
             };
         })
             /**
              * Filter out posts that contain a truthy within the ads array,
-             * these are either ads or nsfw.  Strip out this array from
+             * these are either ads or nsfw.  Strip out this array property from
              * the valid posts + format the name properly.
              */
-            .filter((post: IScrapeResult): boolean => !post.ads.includes(true))
-            .map((goodPost: IScrapeResult): INoAdsResult => {
-                return {
-                    dataUrl: goodPost.dataUrl,
-                    domain: goodPost.domain,
-                    title: fileNameValidator(goodPost.title),
-                    titleHref: goodPost.titleHref
-                };
-            });
+            .reduce((validResultsArr: INoAdsResult[], potentialResult: IScrapeResult) =>
+                !potentialResult.ads.includes(true)
+                    ? [...validResultsArr, {
+                        dataUrl: potentialResult.dataUrl,
+                        domain: potentialResult.domain,
+                        title: fileNameValidator(potentialResult.title),
+                        titleHref: potentialResult.titleHref
+                    }]
+                    : validResultsArr,
+                []);
+            // .filter((post: IScrapeResult): boolean => !post.ads.includes(true))
+            // .map((goodPost: IScrapeResult): INoAdsResult => {
+            //     return {
+            //         dataUrl: goodPost.dataUrl,
+            //         domain: goodPost.domain,
+            //         title: fileNameValidator(goodPost.title),
+            //         titleHref: goodPost.titleHref
+            //     };
+            // });
     });
 
-    await newPage.close();
+    await newBrowser.close();
     return validPosts;
 };
 
