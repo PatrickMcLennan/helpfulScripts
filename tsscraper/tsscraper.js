@@ -52,6 +52,9 @@ var redditScraper = function (SUB) { return __awaiter(void 0, void 0, void 0, fu
                 return [4 /*yield*/, newPage.goto(URL, { waitUntil: 'networkidle0', timeout: 0 })];
             case 3:
                 _a.sent();
+                /**
+                 * Page is loaded, parse out individual posts.
+                 */
                 return [2 /*return*/, newPage.evaluate(function () {
                         var posts = Array.from(document.querySelectorAll('.thing'));
                         /**
@@ -76,7 +79,8 @@ var redditScraper = function (SUB) { return __awaiter(void 0, void 0, void 0, fu
                             };
                         })
                             /**
-                             * Filter out posts that are ads or have nsfw tags
+                             * Filter out posts that are ads or have nsfw tags, strip out
+                             * junk properties from valid posts.
                              */
                             .filter(function (post) { return !post.ads.includes(true); })
                             .map(function (goodPost) {

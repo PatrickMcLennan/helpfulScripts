@@ -6,7 +6,7 @@
 const scraper = require('path/to/tsscraper.js')
 ```
 
-gives you access the `scraper()` function. `scraper(subReddit)` returns an Array of the front pages posts.
+gives you access the `scraper()` function. `scraper(subReddit)` returns a Promise of an Array of the front pages posts.
 
 ```
 {
