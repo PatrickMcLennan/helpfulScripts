@@ -1,9 +1,9 @@
-# tsscraper
+# redditTsScraper
 
 (Another) reddit scraper, made in TypeScript. Returns all posts on the first page of any given subreddit, filtered without ads or nsfw content.
 
 ```
-const scraper = require('path/to/tsscraper.js')
+const scraper = require('path/to/redditTsScraper.js')
 ```
 
 gives you access the `scraper()` function. `scraper(subReddit)` returns a Promise for an Array of the front pages posts.
@@ -19,4 +19,4 @@ gives you access the `scraper()` function. `scraper(subReddit)` returns a Promis
 
 ---
 
-`tsscraper` requires `puppeteer`.
+`redditTsScraper` requires `puppeteer`.

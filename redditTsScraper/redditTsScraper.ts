@@ -1,6 +1,9 @@
+import * as path from 'path';
 import * as puppeteer from 'puppeteer';
-import fileNameValidator from '../fileNameValidator/fileNameValidator';
-import { INoAdsResult, IScrapeResult } from './../dictionary';
+import { INoAdsResult, IScrapeResult } from '../dictionary';
+import { default as fileNameValidator } from '../fileNameValidator/fileNameValidator';
+
+const DIR: string = process.argv[2] || path.resolve();
 
 const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
     /**
@@ -13,7 +16,7 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
     /**
      * Page is loaded, parse out individual posts.
      */
-    const validPosts: INoAdsResult[] = await newPage.evaluate((): INoAdsResult[] => {
+    const validPosts: INoAdsResult[] = await newPage.evaluate((): IScrapeResult[] => {
         const posts: HTMLDivElement[] = Array.from(document.querySelectorAll('.thing'));
         /**
          * Loop over each scraped post, pull what you want
@@ -26,6 +29,7 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
                     post.getAttribute('data-nsfw') !== 'false' ? true : null
                 ],
                 dataUrl: post.getAttribute('data-url'),
+                directory: DIR,
                 domain: post.querySelector('span > a').textContent,
                 title:
                     post
@@ -33,35 +37,27 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
                         .textContent,
                 titleHref: post.querySelector('a').getAttribute('href'),
             };
-        })
-            /**
-             * Filter out posts that contain a truthy within the ads array,
-             * these are either ads or nsfw.  Strip out this array property from
-             * the valid posts + format the name properly.
-             */
-            .reduce((validResultsArr: INoAdsResult[], potentialResult: IScrapeResult) =>
-                !potentialResult.ads.includes(true)
-                    ? [...validResultsArr, {
-                        dataUrl: potentialResult.dataUrl,
-                        domain: potentialResult.domain,
-                        title: fileNameValidator(potentialResult.title),
-                        titleHref: potentialResult.titleHref
-                    }]
-                    : validResultsArr,
-                []);
-            // .filter((post: IScrapeResult): boolean => !post.ads.includes(true))
-            // .map((goodPost: IScrapeResult): INoAdsResult => {
-            //     return {
-            //         dataUrl: goodPost.dataUrl,
-            //         domain: goodPost.domain,
-            //         title: fileNameValidator(goodPost.title),
-            //         titleHref: goodPost.titleHref
-            //     };
-            // });
+        });
     });
+    /**
+     * Filter out posts that contain a truthy within the ads array,
+     * these are either ads or nsfw.  Strip out this array property from
+     * the valid posts + format the name properly.
+     */
+    const formattedPosts = validPosts.reduce((validResultsArr: INoAdsResult[], potentialResult: IScrapeResult) =>
+        !potentialResult.ads.includes(true)
+            ? [...validResultsArr, {
+                dataUrl: potentialResult.dataUrl,
+                directory: DIR,
+                domain: potentialResult.domain,
+                title: fileNameValidator(potentialResult.title),
+                titleHref: potentialResult.titleHref
+            }]
+            : validResultsArr,
+        []);
 
     await newBrowser.close();
-    return validPosts;
+    return formattedPosts;
 };
 
 export default redditScraper;

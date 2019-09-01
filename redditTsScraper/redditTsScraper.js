@@ -9,8 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const path = require("path");
 const puppeteer = require("puppeteer");
 const fileNameValidator_1 = require("../fileNameValidator/fileNameValidator");
+const DIR = process.argv[2] || path.resolve();
 const redditScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () {
     const URL = `https://old.reddit.com/r/${SUB}`;
     const newBrowser = yield puppeteer.launch({ headless: true });
@@ -26,23 +28,25 @@ const redditScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () {
                     post.getAttribute('data-nsfw') !== 'false' ? true : null
                 ],
                 dataUrl: post.getAttribute('data-url'),
+                directory: DIR,
                 domain: post.querySelector('span > a').textContent,
                 title: post
                     .querySelector('a[data-event-action="title"')
                     .textContent,
                 titleHref: post.querySelector('a').getAttribute('href'),
             };
-        })
-            .reduce((validResultsArr, potentialResult) => !potentialResult.ads.includes(true)
-            ? [...validResultsArr, {
-                    dataUrl: potentialResult.dataUrl,
-                    domain: potentialResult.domain,
-                    title: fileNameValidator_1.default(potentialResult.title),
-                    titleHref: potentialResult.titleHref
-                }]
-            : validResultsArr, []);
+        });
     });
+    const formattedPosts = validPosts.reduce((validResultsArr, potentialResult) => !potentialResult.ads.includes(true)
+        ? [...validResultsArr, {
+                dataUrl: potentialResult.dataUrl,
+                directory: DIR,
+                domain: potentialResult.domain,
+                title: fileNameValidator_1.default(potentialResult.title),
+                titleHref: potentialResult.titleHref
+            }]
+        : validResultsArr, []);
     yield newBrowser.close();
-    return validPosts;
+    return formattedPosts;
 });
 exports.default = redditScraper;

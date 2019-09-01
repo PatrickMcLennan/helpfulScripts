@@ -1,7 +1,6 @@
 {
 	"compilerOptions": {
 		"allowJs": false,
-		"allowSyntheticDefaultImports": true,
 		"module": "commonjs",
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
@@ -10,5 +9,10 @@
 		"target": "es6"
 	},
 	"exclude": ["./node_modules", "./dictionary.ts"],
-	"include": ["./fileNameValidator/fileNameValidator", "./imgScraper/imgScraper.ts", "./tsscraper/tsscraper.ts"]
+	"include": [
+		"./checkDirForDoubles/checkDirForDoubles.ts",
+		"./fileNameValidator/fileNameValidator.ts",
+		"./imgScraper/imgScraper.ts",
+		"redditTsScraper/redditTsScraper.ts"
+	]
 }

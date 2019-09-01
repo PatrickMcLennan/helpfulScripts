@@ -1,4 +1,4 @@
-const redditScraper = require('./tsscraper/tsscraper.js');
+const redditScraper = require('./redditTsScraper/redditTsScraper.js');
 
 redditScraper.default('widescreenWallpaper').then(response => {
     console.log(response);

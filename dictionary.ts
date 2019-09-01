@@ -1,11 +1,11 @@
-
- /**
-  * tsscraper
-  */
+/**
+ * tsscraper
+ */
 
 export interface INoAdsResult {
     dataUrl: string;
     domain: string;
+    directory: string;
     title: string;
     titleHref: string;
 }
