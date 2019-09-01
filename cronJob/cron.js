@@ -10,7 +10,7 @@ const moveThatBus = () => https.get('https://jsonplaceholder.typicode.com/posts'
 
     res.on('data', chunk => data += chunk)
 
-    res.on('end', () => 
+    return res.on('end', () => 
         fs.writeFile(`${HERE}/yolo.txt`, JSON.stringify([...JSON.parse(data), { timeStamp: 'hello' }]), err =>
             err
                 ? console.error(err)

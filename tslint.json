@@ -1,0 +1,30 @@
+{
+	"defaultSeverity": "error",
+	"extends": ["tslint:recommended"],
+	"jsRules": {},
+	"rules": {
+		"arrow-return-shorthand": true,
+		"class-name": true,
+		"indent": [true, "spaces"],
+		"interface-name": [true, "always-prefix"],
+		"max-line-length": false,
+		"no-console": false,
+		"no-async-without-await": true,
+		"no-duplicate-switch-case": true,
+		"no-duplicate-variable": true,
+		"no-empty": true,
+		"no-eval": true,
+		"no-floating-promises": true,
+		"no-invalid-template-strings": true,
+		"no-return-await": true,
+		"no-shadowed-variable": true,
+		"no-unused-expression": true,
+		"no-var-keyword": true,
+		"quotemark": [true, "single"],
+		"strict-comparisons": true,
+		"switch-default": true,
+		"trailing-comma": false,
+		"triple-equals": true
+	},
+	"rulesDirectory": []
+}
