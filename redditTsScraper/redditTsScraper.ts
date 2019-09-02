@@ -1,11 +1,8 @@
-import * as path from 'path';
 import * as puppeteer from 'puppeteer';
 import { INoAdsResult, IScrapeResult } from '../dictionary';
 import { default as fileNameValidator } from '../fileNameValidator/fileNameValidator';
 
-const DIR: string = process.argv[2] || path.resolve();
-
-const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
+const redditTsScraper = async (SUB: string): Promise<INoAdsResult[]> => {
     /**
      * Instantiate scraper, navigate to sub.
      */
@@ -29,7 +26,7 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
                     post.getAttribute('data-nsfw') !== 'false' ? true : null
                 ],
                 dataUrl: post.getAttribute('data-url'),
-                directory: DIR,
+                directory: '',
                 domain: post.querySelector('span > a').textContent,
                 title:
                     post
@@ -48,7 +45,7 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
         !potentialResult.ads.includes(true)
             ? [...validResultsArr, {
                 dataUrl: potentialResult.dataUrl,
-                directory: DIR,
+                directory: '',
                 domain: potentialResult.domain,
                 title: fileNameValidator(potentialResult.title),
                 titleHref: potentialResult.titleHref
@@ -60,4 +57,4 @@ const redditScraper = async (SUB: string): Promise<INoAdsResult[]> => {
     return formattedPosts;
 };
 
-export default redditScraper;
+export default redditTsScraper;

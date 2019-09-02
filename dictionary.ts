@@ -13,7 +13,3 @@ export interface INoAdsResult {
 export interface IScrapeResult extends INoAdsResult {
     ads: [boolean | null, boolean | null, boolean | null];
 }
-
-/**
- * imgScraper
- */

@@ -10,21 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
-const logger_1 = require("../logger/logger");
-const directoryChecker = (objectArr, directory) => __awaiter(void 0, void 0, void 0, function* () {
-    process.chdir(directory);
-    let currentFiles = [];
-    yield fs.readdir(directory, (err, files) => {
-        if (err) {
-            logger_1.default(`There was an error checking the directory for duplicates -> ${err}`, directory);
-            return process.exit(1);
-        }
-        else {
-            currentFiles = files;
-        }
-    });
-    return objectArr.reduce((newPosts, currentPost) => currentFiles.includes(currentPost.title)
-        ? newPosts
-        : [...newPosts, currentPost], []);
+const appendLog = (message, currentDir) => __awaiter(void 0, void 0, void 0, function* () {
+    const log = fs.createWriteStream(`${currentDir}/logs.txt`, { flags: 'a' });
+    yield log.write([...log.toString().split('\n'), `${message}\n`].join('\n').replace('[object Object]', '----'));
+    return log.end();
 });
-exports.default = directoryChecker;
+const createNewLog = (message, currentDir) => fs.writeFile(`${currentDir}/logs.txt`, `${message}\n`, (err) => {
+    if (err) {
+        console.error(`There was an error creating the logs -> ${err}`);
+    }
+});
+const logger = (message, currentDir) => fs.readdir(currentDir, (err, files) => {
+    return files.includes('logs.txt') ? appendLog(message, currentDir) : createNewLog(message, currentDir);
+});
+exports.default = logger;

@@ -10,21 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
-const logger_1 = require("../logger/logger");
-const directoryChecker = (objectArr, directory) => __awaiter(void 0, void 0, void 0, function* () {
-    process.chdir(directory);
-    let currentFiles = [];
-    yield fs.readdir(directory, (err, files) => {
-        if (err) {
-            logger_1.default(`There was an error checking the directory for duplicates -> ${err}`, directory);
-            return process.exit(1);
+const https = require("https");
+const imgDownloader = (validatedResults) => __awaiter(void 0, void 0, void 0, function* () {
+    return validatedResults.forEach((post) => __awaiter(void 0, void 0, void 0, function* () {
+        if (['jpeg', 'jpg', 'png'].includes(`${post.dataUrl.split('.')[post.dataUrl.split('.').length - 1]}`)) {
+            const newFile = yield fs.createWriteStream(`${post.title}.${post.dataUrl.split('.')[post.dataUrl.split('.').length - 1]}`);
+            return https.get(post.dataUrl, (res) => {
+                res.pipe(newFile);
+                return newFile.on('finish', () => __awaiter(void 0, void 0, void 0, function* () { return newFile.close(); }));
+            });
         }
-        else {
-            currentFiles = files;
-        }
-    });
-    return objectArr.reduce((newPosts, currentPost) => currentFiles.includes(currentPost.title)
-        ? newPosts
-        : [...newPosts, currentPost], []);
+    }));
 });
-exports.default = directoryChecker;
+exports.default = imgDownloader;

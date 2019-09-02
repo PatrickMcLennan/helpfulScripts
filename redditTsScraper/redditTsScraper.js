@@ -9,11 +9,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const path = require("path");
 const puppeteer = require("puppeteer");
 const fileNameValidator_1 = require("../fileNameValidator/fileNameValidator");
-const DIR = process.argv[2] || path.resolve();
-const redditScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () {
+const redditTsScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () {
     const URL = `https://old.reddit.com/r/${SUB}`;
     const newBrowser = yield puppeteer.launch({ headless: true });
     const newPage = yield newBrowser.newPage();
@@ -28,7 +26,7 @@ const redditScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () {
                     post.getAttribute('data-nsfw') !== 'false' ? true : null
                 ],
                 dataUrl: post.getAttribute('data-url'),
-                directory: DIR,
+                directory: '',
                 domain: post.querySelector('span > a').textContent,
                 title: post
                     .querySelector('a[data-event-action="title"')
@@ -40,7 +38,7 @@ const redditScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () {
     const formattedPosts = validPosts.reduce((validResultsArr, potentialResult) => !potentialResult.ads.includes(true)
         ? [...validResultsArr, {
                 dataUrl: potentialResult.dataUrl,
-                directory: DIR,
+                directory: '',
                 domain: potentialResult.domain,
                 title: fileNameValidator_1.default(potentialResult.title),
                 titleHref: potentialResult.titleHref
@@ -49,4 +47,4 @@ const redditScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () {
     yield newBrowser.close();
     return formattedPosts;
 });
-exports.default = redditScraper;
+exports.default = redditTsScraper;

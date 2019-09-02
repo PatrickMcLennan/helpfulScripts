@@ -12,7 +12,10 @@
 	"include": [
 		"./checkDirForDoubles/checkDirForDoubles.ts",
 		"./fileNameValidator/fileNameValidator.ts",
-		"./imgScraper/imgScraper.ts",
-		"redditTsScraper/redditTsScraper.ts"
+		"imgDownloader/imgDownloader.ts",
+		"logger/logger.ts",
+		"redditTsScraper/redditTsScraper.ts",
+		"timeStamp/timeStamp.ts",
+		"wallpaperCronJob/wallpaperCronJob.ts"
 	]
 }

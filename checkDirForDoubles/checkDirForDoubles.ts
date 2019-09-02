@@ -1,30 +1,30 @@
 import * as fs from 'fs';
-import * as path from 'path'
+import { default as logger } from '../logger/logger';
 
 import { INoAdsResult } from '../dictionary';
-const HERE: string = path.resolve();
 
-const directoryChecker = (objectArr: INoAdsResult[], newPath: string): INoAdsResult[] | void => {
+const directoryChecker = async (objectArr: INoAdsResult[], directory: string): Promise<INoAdsResult[]> => {
+    process.chdir(directory);
+    let currentFiles: string[] = [];
     /**
-     *  If given a new directory, move there
+     * Gather the names of the files currently in the Directory
      */
-    if (path.resolve() !== objectArr[0].directory) {
-        process.chdir(objectArr[0].directory)
-    }
-    /**
-     * Gather the names of the files currently in the Directory, Filter those matches out of the new posts
-     */
-    return fs.readdir(newPath ? newPath : HERE, (err: Error, files: string[]): INoAdsResult[] | void => {
+    await fs.readdir(directory, (err: Error, files: string[]): INoAdsResult[] | void => {
         if (err) {
-            console.error(err);
+                logger(`There was an error checking the directory for duplicates -> ${err}`, directory);
+                return process.exit(1);
         } else {
-            return objectArr.reduce((newPosts: INoAdsResult[], currentPost: INoAdsResult): INoAdsResult[] =>
-                files.includes(currentPost.title)
-                    ? newPosts
-                    : [...newPosts, currentPost],
-                []);
+            currentFiles = files;
         }
     });
+    /**
+     * Return the posts that aren't in the directory
+     */
+    return objectArr.reduce((newPosts: INoAdsResult[], currentPost: INoAdsResult): INoAdsResult[] =>
+        currentFiles.includes(currentPost.title)
+            ? newPosts
+            : [...newPosts, currentPost],
+        []);
 };
 
 export default directoryChecker;
