@@ -13,3 +13,12 @@ export interface INoAdsResult {
 export interface IScrapeResult extends INoAdsResult {
     ads: [boolean | null, boolean | null, boolean | null];
 }
+
+/**
+ * youtubeChannel
+ */
+export interface IYoutubeResult {
+    channel: string;
+    title: string;
+    url: string;
+}

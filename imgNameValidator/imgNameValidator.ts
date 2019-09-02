@@ -1,4 +1,4 @@
-const fileNameValidator = (unEditedString: string): string => {
+const imgNameValidator = (unEditedString: string): string => {
     const badGuys: string[] = ['/', '\'', '"'];
 
     return unEditedString
@@ -15,4 +15,4 @@ const fileNameValidator = (unEditedString: string): string => {
         .toLowerCase();
 };
 
-export default fileNameValidator;
+export default imgNameValidator;

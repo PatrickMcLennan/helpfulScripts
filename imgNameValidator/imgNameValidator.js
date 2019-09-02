@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const fileNameValidator = (unEditedString) => {
+const imgNameValidator = (unEditedString) => {
     const badGuys = ['/', '\'', '"'];
     return unEditedString
         .split('')
@@ -13,4 +13,4 @@ const fileNameValidator = (unEditedString) => {
         .trim()
         .toLowerCase();
 };
-exports.default = fileNameValidator;
+exports.default = imgNameValidator;

@@ -1,5 +1,4 @@
 import * as dotenv from 'dotenv';
-import * as path from 'path';
 import { default as checkDirForDoubles } from '../checkDirForDoubles/checkDirForDoubles';
 import { default as imgDownloader } from '../imgDownloader/imgDownloader';
 import { default as logger } from '../logger/logger';
@@ -11,7 +10,7 @@ import { INoAdsResult } from '../dictionary';
 const HERE: string = process.env.BACKGROUNDS_UBUNTU;
 
 process.chdir(HERE);
-redditTsScraper('widescreenWallpaper')
+redditTsScraper(process.env.BACKGROUNDS_REDDIT)
     .then((validatedPosts: INoAdsResult[]): Promise<INoAdsResult[]> => checkDirForDoubles(validatedPosts, HERE))
     .then((newPosts: INoAdsResult[]): Promise<void> => imgDownloader(newPosts, HERE))
     .then((): void => logger(`Successfully ran on ${timeStamp()}`, HERE))

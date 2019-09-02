@@ -10,12 +10,14 @@
 	},
 	"exclude": ["./node_modules", "./dictionary.ts"],
 	"include": [
-		"./checkDirForDoubles/checkDirForDoubles.ts",
-		"./fileNameValidator/fileNameValidator.ts",
+		"checkDirForDoubles/checkDirForDoubles.ts",
+		"imgNameValidator/imgNameValidator.ts",
 		"imgDownloader/imgDownloader.ts",
 		"logger/logger.ts",
 		"redditTsScraper/redditTsScraper.ts",
 		"timeStamp/timeStamp.ts",
-		"wallpaperCronJob/wallpaperCronJob.ts"
+		"wallpaperCronJob/wallpaperCronJob.ts",
+		"youtubeDl/youtubeDl.ts",
+		"youtubeChannel/youtubeChannel.ts"
 	]
 }

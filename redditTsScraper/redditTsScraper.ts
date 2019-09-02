@@ -1,12 +1,12 @@
 import * as puppeteer from 'puppeteer';
 import { INoAdsResult, IScrapeResult } from '../dictionary';
-import { default as fileNameValidator } from '../fileNameValidator/fileNameValidator';
+import { default as imgNameValidator } from '../imgNameValidator/imgNameValidator';
 
 const redditTsScraper = async (SUB: string): Promise<INoAdsResult[]> => {
     /**
      * Instantiate scraper, navigate to sub.
      */
-    const URL = `https://old.reddit.com/r/${SUB}`;
+    const URL: string = `https://old.reddit.com/r/${SUB}`;
     const newBrowser: puppeteer.Browser = await puppeteer.launch({ headless: true });
     const newPage: puppeteer.Page = await newBrowser.newPage();
     await newPage.goto(URL, { waitUntil: 'networkidle0', timeout: 0 });
@@ -41,13 +41,13 @@ const redditTsScraper = async (SUB: string): Promise<INoAdsResult[]> => {
      * these are either ads or nsfw.  Strip out this array property from
      * the valid posts + clean name for os.
      */
-    const formattedPosts = validPosts.reduce((validResultsArr: INoAdsResult[], potentialResult: IScrapeResult) =>
+    const formattedPosts: INoAdsResult[] = validPosts.reduce((validResultsArr: INoAdsResult[], potentialResult: IScrapeResult): INoAdsResult[] =>
         !potentialResult.ads.includes(true)
             ? [...validResultsArr, {
                 dataUrl: potentialResult.dataUrl,
                 directory: '',
                 domain: potentialResult.domain,
-                title: fileNameValidator(potentialResult.title),
+                title: imgNameValidator(potentialResult.title),
                 titleHref: potentialResult.titleHref
             }]
             : validResultsArr,

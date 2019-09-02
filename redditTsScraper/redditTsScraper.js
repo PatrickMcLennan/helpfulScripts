@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const puppeteer = require("puppeteer");
-const fileNameValidator_1 = require("../fileNameValidator/fileNameValidator");
+const imgNameValidator_1 = require("../imgNameValidator/imgNameValidator");
 const redditTsScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () {
     const URL = `https://old.reddit.com/r/${SUB}`;
     const newBrowser = yield puppeteer.launch({ headless: true });
@@ -40,7 +40,7 @@ const redditTsScraper = (SUB) => __awaiter(void 0, void 0, void 0, function* () 
                 dataUrl: potentialResult.dataUrl,
                 directory: '',
                 domain: potentialResult.domain,
-                title: fileNameValidator_1.default(potentialResult.title),
+                title: imgNameValidator_1.default(potentialResult.title),
                 titleHref: potentialResult.titleHref
             }]
         : validResultsArr, []);

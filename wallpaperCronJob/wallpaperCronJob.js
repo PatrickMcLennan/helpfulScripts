@@ -9,7 +9,7 @@ const timeStamp_1 = require("../timeStamp/timeStamp");
 dotenv.config();
 const HERE = process.env.BACKGROUNDS_UBUNTU;
 process.chdir(HERE);
-redditTsScraper_1.default('widescreenWallpaper')
+redditTsScraper_1.default(process.env.BACKGROUNDS_REDDIT)
     .then((validatedPosts) => checkDirForDoubles_1.default(validatedPosts, HERE))
     .then((newPosts) => imgDownloader_1.default(newPosts, HERE))
     .then(() => logger_1.default(`Successfully ran on ${timeStamp_1.default()}`, HERE))

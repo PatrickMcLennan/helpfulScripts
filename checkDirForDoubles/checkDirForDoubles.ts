@@ -16,7 +16,7 @@ const directoryChecker = async (objectArr: INoAdsResult[], directory: string): P
         }
     });
     /**
-     * Remove files in the directory from the given array of names.
+     * Remove any duplicates from objectArr
      */
     return objectArr.reduce((newPosts: INoAdsResult[], currentPost: INoAdsResult): INoAdsResult[] =>
         currentFiles.includes(currentPost.title)

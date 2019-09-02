@@ -21,6 +21,11 @@ const createNewLog = (message, currentDir) => fs.writeFile(`${currentDir}/logs.t
     }
 });
 const logger = (message, currentDir) => fs.readdir(currentDir, (err, files) => {
-    return files.includes('logs.txt') ? appendLog(message, currentDir) : createNewLog(message, currentDir);
+    if (err) {
+        return console.error(err);
+    }
+    else {
+        return files.includes('logs.txt') ? appendLog(message, currentDir) : createNewLog(message, currentDir);
+    }
 });
 exports.default = logger;

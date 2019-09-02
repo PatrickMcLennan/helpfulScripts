@@ -26,7 +26,11 @@ const logger = (message: string | Error, currentDir: string): void =>
      *  append if it do.
      */
     fs.readdir(currentDir, (err: Error, files: string[]): Promise<void> | void => {
-        return files.includes('logs.txt') ? appendLog(message, currentDir) : createNewLog(message, currentDir);
+        if (err) {
+            return console.error(err);
+        } else {
+            return files.includes('logs.txt') ? appendLog(message, currentDir) : createNewLog(message, currentDir);
+        }
     });
 
 export default logger;
