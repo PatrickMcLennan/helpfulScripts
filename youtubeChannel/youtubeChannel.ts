@@ -17,10 +17,11 @@ const youtubeChannel = async (): Promise<IYoutubeResult[]> => {
      */
     const allResults: IYoutubeResult[] = await channelPage.evaluate((): IYoutubeResult[] => {
         const linksWrapper: HTMLElement = document.querySelector('#primary #items');
+        const channel: string = document.querySelector('#channel-name #text').textContent;
 
         return [...Array.from(linksWrapper.querySelectorAll('#dismissable'))].map((singleResult: HTMLElement): IYoutubeResult => {
             return {
-                channel: document.querySelector('#channel-name #text').textContent,
+                channel,
                 title: singleResult.querySelector('#dismissable #video-title').textContent,
                 url: `https://youtube.com${singleResult.querySelector('#dismissable #video-title').getAttribute('href')}`,
             };

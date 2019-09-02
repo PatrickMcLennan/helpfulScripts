@@ -1,4 +1,14 @@
 /**
+ * pirateBayUser
+ */
+
+export interface ITorrentVideo {
+    magnet: string;
+    title: string;
+    url: string;
+ }
+
+/**
  * tsscraper
  */
 

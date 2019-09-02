@@ -14,7 +14,7 @@ const imgDownloader = async (validatedResults: INoAdsResult[], currentDirectory:
         /**
          * Filter all results by proper image extension, download accepted file types, close stream.
          */
-        const extension = post.dataUrl.split('.')[post.dataUrl.split('.').length - 1];
+        const extension: string = post.dataUrl.split('.')[post.dataUrl.split('.').length - 1];
         if (['jpeg', 'jpg', 'png'].includes(extension)) {
             const newFile: fs.WriteStream = await fs.createWriteStream(`${post.title}.${extension}`);
             return https.get(post.dataUrl, (res): fs.WriteStream => {

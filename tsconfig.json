@@ -14,6 +14,7 @@
 		"imgNameValidator/imgNameValidator.ts",
 		"imgDownloader/imgDownloader.ts",
 		"logger/logger.ts",
+		"pirateBayVideo/pirateBayVideo.ts",
 		"redditTsScraper/redditTsScraper.ts",
 		"timeStamp/timeStamp.ts",
 		"wallpaperCronJob/wallpaperCronJob.ts",
