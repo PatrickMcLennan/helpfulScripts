@@ -6,10 +6,10 @@ import { default as redditTsScraper } from '../redditTsScraper/redditTsScraper';
 import { default as timeStamp } from '../timeStamp/timeStamp';
 
 import { INoAdsResult } from '../dictionary';
-const HERE = path.resolve();
+const HERE: string = '/home/patrick/Pictures/Backgrounds';
 
 redditTsScraper('widescreenWallpaper')
-    .then((validatedPosts: INoAdsResult[]): Promise<INoAdsResult[]> => checkDirForDoubles(validatedPosts, `${HERE}/bgs`))
+    .then((validatedPosts: INoAdsResult[]): Promise<INoAdsResult[]> => checkDirForDoubles(validatedPosts, HERE))
     .then((newPosts: INoAdsResult[]): Promise<void> => imgDownloader(newPosts))
     .then((): void => logger(`Successfully ran on ${timeStamp()}`, HERE))
     .catch((err: Error): void => logger(`An error occured on ${timeStamp()}, -> ${err}`, HERE));
