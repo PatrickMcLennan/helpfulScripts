@@ -39,7 +39,7 @@ const redditTsScraper = async (SUB: string): Promise<INoAdsResult[]> => {
     /**
      * Filter out posts that contain a truthy within the ads array,
      * these are either ads or nsfw.  Strip out this array property from
-     * the valid posts + format the name properly.
+     * the valid posts + clean name for os.
      */
     const formattedPosts = validPosts.reduce((validResultsArr: INoAdsResult[], potentialResult: IScrapeResult) =>
         !potentialResult.ads.includes(true)

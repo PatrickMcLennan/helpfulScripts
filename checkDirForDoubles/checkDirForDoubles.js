@@ -12,15 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const logger_1 = require("../logger/logger");
 const directoryChecker = (objectArr, directory) => __awaiter(void 0, void 0, void 0, function* () {
-    process.chdir(directory);
     let currentFiles = [];
     yield fs.readdir(directory, (err, files) => {
         if (err) {
-            logger_1.default(`There was an error checking the directory for duplicates -> ${err}`, directory);
-            return process.exit(1);
+            return logger_1.default(`There was an error checking the directory for duplicates -> ${err}`, directory);
         }
         else {
-            currentFiles = files;
+            return currentFiles = files;
         }
     });
     return objectArr.reduce((newPosts, currentPost) => currentFiles.includes(currentPost.title)

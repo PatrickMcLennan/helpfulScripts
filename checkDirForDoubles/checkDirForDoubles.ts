@@ -4,21 +4,19 @@ import { default as logger } from '../logger/logger';
 import { INoAdsResult } from '../dictionary';
 
 const directoryChecker = async (objectArr: INoAdsResult[], directory: string): Promise<INoAdsResult[]> => {
-    process.chdir(directory);
-    let currentFiles: string[] = [];
     /**
-     * Gather the names of the files currently in the Directory
+     * Get current files in dir
      */
-    await fs.readdir(directory, (err: Error, files: string[]): INoAdsResult[] | void => {
+    let currentFiles: string[] = [];
+    await fs.readdir(directory, (err: Error, files: string[]): string[] | void => {
         if (err) {
-                logger(`There was an error checking the directory for duplicates -> ${err}`, directory);
-                return process.exit(1);
+            return logger(`There was an error checking the directory for duplicates -> ${err}`, directory);
         } else {
-            currentFiles = files;
+            return currentFiles = files;
         }
     });
     /**
-     * Return the posts that aren't in the directory
+     * Remove files in the directory from the given array of names.
      */
     return objectArr.reduce((newPosts: INoAdsResult[], currentPost: INoAdsResult): INoAdsResult[] =>
         currentFiles.includes(currentPost.title)
