@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import { default as logger } from '../logger/logger';
 import { default as timeStamp } from '../timeStamp/timeStamp';
 
-const movieDirMainter = (currentDir: string) =>
+const movieDirMaintainer = (currentDir: string) =>
     /**
      * Read the current directory, loop over current files.
      */
@@ -10,14 +10,14 @@ const movieDirMainter = (currentDir: string) =>
         if (err) {
             return logger(`There was an error reading ${currentDir} at ${timeStamp()}`, currentDir);
         } else {
-            const acceptedExts: string[] = ['avi', 'mkv']
+            const acceptedExts: string[] = ['avi', 'mkv'];
             return files.forEach((file: string): void => {
                 fs.lstat(file, (lStatErr: Error, stats: fs.Stats): void => {
                     if (lStatErr) {
                         return logger(`There was an error trying to maintain ${file} at ${timeStamp()}, -> ${lStatErr}`, currentDir);
                     } else if (stats.isDirectory()) {
                         /**
-                         * If a file is a directory, read its contents.
+                         * File is a directory, read its contents.
                          */
                         return fs.readdir(file, (isDirErr: Error, unWantedDirFiles: string[]): void => {
                             if (isDirErr) {
@@ -41,10 +41,14 @@ const movieDirMainter = (currentDir: string) =>
                                 );
                             }
                         });
+                    } else {
+                        /**
+                         * File is not a directory, rename it here
+                         */
                     }
                 });
             });
         }
     });
 
-export default movieDirMainter;
+export default movieDirMaintainer;
