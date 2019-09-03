@@ -2,8 +2,10 @@
  * pirateBayUser
  */
 
-export interface ITorrentVideo {
+export interface ITorrent {
     magnet: string;
+    stats: string[];
+    tags: string[];
     title: string;
     url: string;
  }

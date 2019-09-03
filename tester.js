@@ -1,3 +1,3 @@
-const pirateBayVideo = require('./pirateBayVideo/pirateBayVideo.js').default;
+const pirateBayPage = require('./pirateBayPage/pirateBayPage.js').default;
 
-pirateBayVideo('metalcore').then(resultsArr => console.log(resultsArr)).catch(err => console.error(err))
+pirateBayPage('metalcore').then(resultsArr => console.log(resultsArr)).catch(err => console.error(err))
