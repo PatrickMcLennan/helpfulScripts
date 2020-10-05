@@ -9,21 +9,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const dotenv = require("dotenv");
 const puppeteer = require("puppeteer");
-dotenv.config();
-const youtubeChannel = () => __awaiter(void 0, void 0, void 0, function* () {
+const youtubeChannel = (channel) => __awaiter(void 0, void 0, void 0, function* () {
     const newBrowser = yield puppeteer.launch({ headless: true });
     const channelPage = yield newBrowser.newPage();
-    yield channelPage.goto(process.env.YOUTUBE_CHANNEL_1, { waitUntil: 'networkidle0', timeout: 0 });
+    yield channelPage.goto(channel, { waitUntil: 'networkidle0', timeout: 0 });
     const allResults = yield channelPage.evaluate(() => {
         const linksWrapper = document.querySelector('#primary #items');
-        const channel = document.querySelector('#channel-name #text').textContent;
+        const channelName = document.querySelector('#channel-name #text').textContent;
         return [...Array.from(linksWrapper.querySelectorAll('#dismissable'))].map((singleResult) => {
             return {
-                channel,
+                channel: channelName,
                 title: singleResult.querySelector('#dismissable #video-title').textContent,
-                url: `https://youtube.com${singleResult.querySelector('#dismissable #video-title').getAttribute('href')}`,
+                url: `https://youtube.com${singleResult
+                    .querySelector('#dismissable #video-title')
+                    .getAttribute('href')}`
             };
         });
     });

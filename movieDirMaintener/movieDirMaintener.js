@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const logger_1 = require("../logger/logger");
 const timeStamp_1 = require("../timeStamp/timeStamp");
-const movieDirMainter = (currentDir) => fs.readdir(currentDir, (err, files) => {
+const movieDirMaintainer = (currentDir) => fs.readdir(currentDir, (err, files) => {
     if (err) {
         return logger_1.default(`There was an error reading ${currentDir} at ${timeStamp_1.default()}`, currentDir);
     }
@@ -34,8 +34,10 @@ const movieDirMainter = (currentDir) => fs.readdir(currentDir, (err, files) => {
                         }
                     });
                 }
+                else {
+                }
             });
         });
     }
 });
-exports.default = movieDirMainter;
+exports.default = movieDirMaintainer;

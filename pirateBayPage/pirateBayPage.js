@@ -21,11 +21,18 @@ const pirateBayPage = (userName) => __awaiter(void 0, void 0, void 0, function* 
         const allRows = [...document.querySelectorAll('tr')].slice(1, [...document.querySelectorAll('tr')].length - 2);
         return allRows.map((singleResult) => {
             return {
-                magnet: singleResult.querySelector('td a[title="Download this torrent using magnet"]').getAttribute('href'),
-                stats: [...singleResult.querySelector('td .detDesc').textContent.trim().split(',')],
+                magnet: singleResult
+                    .querySelector('td a[title="Download this torrent using magnet"]')
+                    .getAttribute('href'),
+                stats: [
+                    ...singleResult
+                        .querySelector('td .detDesc')
+                        .textContent.trim()
+                        .split(',')
+                ],
                 tags: [...singleResult.querySelectorAll('.vertTh center a')].map((aElement) => aElement.textContent),
                 title: singleResult.querySelector('.detLink').textContent,
-                url: `https://thepiratebay.org${singleResult.querySelector('.detLink').getAttribute('href')}`,
+                url: `https://thepiratebay.org${singleResult.querySelector('.detLink').getAttribute('href')}`
             };
         });
     });
